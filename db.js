@@ -1,3 +1,6 @@
+import dns from "dns";
+dns.setDefaultResultOrder("ipv4first");
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -5,7 +8,8 @@ import pkg from "pg";
 const { Pool } = pkg;
 
 const pool = new Pool({
-    connectionString: String(process.env.DATABASE_URL),
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
 });
 
 export default pool;
